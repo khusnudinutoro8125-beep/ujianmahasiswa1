@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ujian Esai Kewarganegaraan</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-hover: #1d4ed8;
+            --bg: #f3f4f6;
+            --surface: #ffffff;
+            --text: #1f2937;
+            --border: #e5e7eb;
+            --danger: #ef4444;
+        }
+        
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+        
+        /* Layar Login & Selesai */
+        #login-section, #finish-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        
+        .card {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .card h2 { margin-bottom: 20px; color: var(--primary); }
+        
+        .form-group { margin-bottom: 15px; text-align: left; }
+        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
+        .form-group input {
+            width: 100%; padding: 10px; border: 1px solid var(--border);
+            border-radius: 6px; font-size: 16px; outline: none;
+        }
+        .form-group input:focus { border-color: var(--primary); }
+
+        button {
+            width: 100%; padding: 12px; background: var(--primary); color: white;
+            border: none; border-radius: 6px; font-size: 16px; font-weight: bold;
+            cursor: pointer; transition: background 0.3s;
+        }
+        button:hover { background: var(--primary-hover); }
+        button:disabled { background: #9ca3af; cursor: not-allowed; }
+
+        /* Layar Ujian */
+        #exam-section { display: none; padding-bottom: 60px; }
+        
+        .sticky-header {
+            position: sticky; top: 0; background: var(--surface);
+            padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: flex; justify-content: space-between; align-items: center;
+            z-index: 100; margin-bottom: 30px; border-radius: 0 0 12px 12px;
+        }
+        
+        .timer-badge {
+            background: var(--danger); color: white; padding: 8px 16px;
+            border-radius: 20px; font-weight: bold; font-size: 18px;
+        }
+
+        .question-card {
+            background: var(--surface); padding: 25px; border-radius: 12px;
+            margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .question-card h3 { margin-bottom: 10px; font-size: 16px; }
+        
+        textarea {
+            width: 100%; min-height: 150px; padding: 12px; border: 1px solid var(--border);
+            border-radius: 6px; font-size: 15px; font-family: inherit;
+            resize: vertical; outline: none;
+        }
+        textarea:focus { border-color: var(--primary); }
+
+        .unselectable { user-select: none; -webkit-user-select: none; }
+    </style>
+</head>
+<body>
+
+    <div id="login-section">
+        <div class="card">
+            <h2>Ujian Kewarganegaraan</h2>
+            <p style="margin-bottom: 20px; font-size: 14px; color: #6b7280;">Waktu Ujian: 60 Menit. Dilarang berpindah tab.</p>
+            <div class="form-group">
+                <label for="nim">NIM</label>
+                <input type="number" id="nim" required placeholder="Masukkan NIM Anda">
+            </div>
+            <div class="form-group">
+                <label for="nama">Nama Lengkap</label>
+                <input type="text" id="nama" required placeholder="Masukkan Nama Anda">
+            </div>
+            <button onclick="startExam()">Mulai Ujian</button>
+        </div>
+    </div>
+
+    <div id="exam-section" class="container">
+        <div class="sticky-header">
+            <div>
+                <strong id="display-nama">-</strong> | <span id="display-nim">-</span>
+            </div>
+            <div class="timer-badge" id="timer">60:00</div>
+        </div>
+
+        <div id="questions-container" class="unselectable">
+            <div class="question-card">
+                <h3>1. Analisis bagaimana nilai-nilai Pancasila dapat diimplementasikan untuk menanggulangi penyebaran radikalisme dan polarisasi di era digital. Berikan contoh kasus nyatanya.</h3>
+                <textarea id="ans1" placeholder="Ketik jawaban Anda di sini..."></textarea>
+            </div>
+            
+            <div class="question-card">
+                <h3>2. Evaluasi pelaksanaan sistem demokrasi di Indonesia pasca-Reformasi. Apakah praktik politik saat ini sudah sepenuhnya sejalan dengan Sila Keempat Pancasila dan UUD 1945?</h3>
+                <textarea id="ans2" placeholder="Ketik jawaban Anda di sini..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <h3>3. Jelaskan faktor fundamental penyebab ketimpangan di mana warga negara seringkali lebih aktif menuntut hak asasi daripada melaksanakan kewajiban konstitusionalnya.</h3>
+                <textarea id="ans3" placeholder="Ketik jawaban Anda di sini..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <h3>4. Bagaimana konsep Wawasan Nusantara seharusnya diaplikasikan oleh pemerintah dalam menyelesaikan konflik kepentingan internal, seperti sengketa agraria antara masyarakat dan korporasi?</h3>
+                <textarea id="ans4" placeholder="Ketik jawaban Anda di sini..."></textarea>
+            </div>
+
+            <div class="question-card">
+                <h3>5. Identifikasi ancaman non-militer paling signifikan bagi ketahanan nasional Indonesia dalam satu dekade ke depan dan jelaskan strategi mitigasinya berdasarkan pendekatan Asta Gatra.</h3>
+                <textarea id="ans5" placeholder="Ketik jawaban Anda di sini..."></textarea>
+            </div>
+        </div>
+
+        <button id="btn-submit" onclick="submitExam('Manual')">Kumpulkan Jawaban</button>
+    </div>
+
+    <div id="finish-section" style="display: none;">
+        <div class="card">
+            <h2 style="color: #10b981;">Ujian Selesai</h2>
+            <p id="finish-message">Jawaban Anda telah berhasil disimpan.</p>
+        </div>
+    </div>
+
+    <script>
+        // WAJIB GANTI URL DI BAWAH INI DENGAN URL WEB APP GAS ANDA
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxigCtgQu6QDdujwy7C4mpRnhXjb-6j6y1Vh2eSjfq7onWurg_AhfsbhvqqtzkloHEy/exec"; 
+        
+        let studentNIM = "";
+        let studentNama = "";
+        let timeRemaining = 60 * 60; // 60 Menit
+        let timerInterval;
+        let isExamActive = false;
+
+        document.addEventListener('contextmenu', event => event.preventDefault());
+        document.addEventListener('copy', event => event.preventDefault());
+        document.addEventListener('paste', event => event.preventDefault());
+
+        function startExam() {
+            studentNIM = document.getElementById('nim').value.trim();
+            studentNama = document.getElementById('nama').value.trim();
+
+            if (!studentNIM || !studentNama) {
+                alert("Harap isi NIM dan Nama terlebih dahulu.");
+                return;
+            }
+
+            let elem = document.documentElement;
+            if (elem.requestFullscreen) {
+                elem.requestFullscreen().catch(err => console.log("Fullscreen ditolak."));
+            }
+
+            document.getElementById('login-section').style.display = 'none';
+            document.getElementById('exam-section').style.display = 'block';
+            
+            document.getElementById('display-nim').textContent = studentNIM;
+            document.getElementById('display-nama').textContent = studentNama;
+
+            isExamActive = true;
+            startTimer();
+            setupAntiCheat();
+        }
+
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeRemaining--;
+                
+                let minutes = Math.floor(timeRemaining / 60);
+                let seconds = timeRemaining % 60;
+                
+                document.getElementById('timer').textContent = 
+                    (minutes < 10 ? "0" : "") + minutes + ":" + 
+                    (seconds < 10 ? "0" : "") + seconds;
+
+                if (timeRemaining <= 0) {
+                    clearInterval(timerInterval);
+                    alert("Waktu habis! Jawaban akan dikirim secara otomatis.");
+                    submitExam('Waktu Habis');
+                }
+            }, 1000);
+        }
+
+        // Fungsi khusus agar bisa dimatikan nanti
+        function handleVisibilityChange() {
+            if (document.hidden && isExamActive) {
+                sendLogPelanggaran("Pindah Tab / Minimize Browser");
+            }
+        }
+
+        function setupAntiCheat() {
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+        }
+
+        function sendLogPelanggaran(jenisPelanggaran) {
+            if(GAS_URL === "URL_GAS_ANDA_DISINI") return;
+            
+            const payload = {
+                action: "log_pelanggaran",
+                nim: studentNIM,
+                nama: studentNama,
+                pelanggaran: jenisPelanggaran,
+                waktu: new Date().toLocaleString("id-ID")
+            };
+
+            fetch(GAS_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                redirect: "follow",
+                body: JSON.stringify(payload)
+            }).catch(e => console.error(e));
+        }
+
+        function submitExam(alasan) {
+            if(GAS_URL === "URL_GAS_ANDA_DISINI") {
+                alert("URL GAS belum dimasukkan ke dalam kode HTML.");
+                return;
+            }
+
+            // Hentikan ujian dan matikan pendeteksi tab agar tidak ada log masuk lagi
+            isExamActive = false;
+            clearInterval(timerInterval);
+            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            
+            const btnSubmit = document.getElementById('btn-submit');
+            btnSubmit.disabled = true;
+            btnSubmit.textContent = "Mengirim Data... Mohon tunggu";
+
+            const payload = {
+                action: "submit_jawaban",
+                nim: studentNIM,
+                nama: studentNama,
+                ans1: document.getElementById('ans1').value,
+                ans2: document.getElementById('ans2').value,
+                ans3: document.getElementById('ans3').value,
+                ans4: document.getElementById('ans4').value,
+                ans5: document.getElementById('ans5').value,
+                status_submit: alasan
+            };
+
+            fetch(GAS_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8"
+                },
+                redirect: "follow",
+                body: JSON.stringify(payload)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.status === "success") {
+                    tampilkanSelesai();
+                } else {
+                    throw new Error(data.message);
+                }
+            })
+            .catch(error => {
+                console.error("Error:", error);
+                alert("Gagal terhubung ke server Google. Pastikan URL GAS sudah benar.");
+                btnSubmit.disabled = false;
+                btnSubmit.textContent = "Kumpulkan Jawaban";
+                
+                // Jika gagal kirim, aktifkan kembali ujian dan sensornya
+                isExamActive = true; 
+                document.addEventListener("visibilitychange", handleVisibilityChange);
+            });
+        }
+
+        function tampilkanSelesai() {
+            if(document.exitFullscreen) {
+                document.exitFullscreen().catch(() => {});
+            }
+            document.getElementById('exam-section').style.display = 'none';
+            document.getElementById('finish-section').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
