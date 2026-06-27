@@ -6,22 +6,25 @@
     <title>Ujian Esai Kewarganegaraan</title>
     <style>
         :root {
-            --primary: #2563eb;
-            --primary-hover: #1d4ed8;
-            --bg: #f3f4f6;
-            --surface: #ffffff;
-            --text: #1f2937;
-            --border: #e5e7eb;
-            --danger: #ef4444;
+            --bg-body: #F5F5F7;
+            --bg-card: #FFFFFF;
+            --text-main: #1D1D1F;
+            --text-muted: #86868B;
+            --primary: #0071E3;
+            --primary-hover: #0077ED;
+            --danger: #FF3B30;
+            --warning: #FF9500;
+            --success: #34C759;
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.5;
+            -webkit-font-smoothing: antialiased;
         }
 
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
@@ -32,64 +35,169 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
         
         .card {
-            background: var(--surface);
+            background: var(--bg-card);
             padding: 40px;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
             width: 100%;
-            max-width: 400px;
+            max-width: 420px;
             text-align: center;
         }
 
-        .card h2 { margin-bottom: 20px; color: var(--primary); }
+        .card h2 { 
+            margin-bottom: 8px; 
+            font-size: 24px; 
+            font-weight: 600;
+            letter-spacing: -0.5px;
+        }
         
-        .form-group { margin-bottom: 15px; text-align: left; }
-        .form-group label { display: block; margin-bottom: 5px; font-weight: 500; }
-        .form-group input {
-            width: 100%; padding: 10px; border: 1px solid var(--border);
-            border-radius: 6px; font-size: 16px; outline: none;
+        .card p.subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-bottom: 30px;
         }
-        .form-group input:focus { border-color: var(--primary); }
 
-        button {
-            width: 100%; padding: 12px; background: var(--primary); color: white;
-            border: none; border-radius: 6px; font-size: 16px; font-weight: bold;
-            cursor: pointer; transition: background 0.3s;
+        .form-group { margin-bottom: 20px; text-align: left; }
+        .form-group label { 
+            display: block; 
+            margin-bottom: 8px; 
+            font-size: 13px; 
+            font-weight: 500; 
+            color: var(--text-muted);
         }
-        button:hover { background: var(--primary-hover); }
-        button:disabled { background: #9ca3af; cursor: not-allowed; }
+        .form-group input {
+            width: 100%; 
+            padding: 14px 16px; 
+            background-color: var(--bg-body);
+            border: 2px solid transparent;
+            border-radius: 12px; 
+            font-size: 16px; 
+            outline: none;
+            transition: all 0.2s ease;
+            color: var(--text-main);
+        }
+        .form-group input:focus { 
+            background-color: var(--bg-card);
+            border-color: var(--primary); 
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+        }
+
+        button.btn-primary {
+            width: 100%; 
+            padding: 14px; 
+            background: var(--primary); 
+            color: white;
+            border: none; 
+            border-radius: 24px; /* Bentuk Kapsul */
+            font-size: 16px; 
+            font-weight: 600;
+            cursor: pointer; 
+            transition: all 0.2s ease;
+        }
+        button.btn-primary:hover { 
+            background: var(--primary-hover); 
+            transform: scale(0.98);
+        }
+        button.btn-primary:disabled { 
+            background: var(--text-muted); 
+            cursor: not-allowed; 
+            transform: none;
+        }
 
         /* Layar Ujian */
-        #exam-section { display: none; padding-bottom: 60px; }
+        #exam-section { display: none; padding-bottom: 80px; }
         
         .sticky-header {
-            position: sticky; top: 0; background: var(--surface);
-            padding: 15px 20px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            display: flex; justify-content: space-between; align-items: center;
-            z-index: 100; margin-bottom: 30px; border-radius: 0 0 12px 12px;
-        }
-        
-        .timer-badge {
-            background: var(--danger); color: white; padding: 8px 16px;
-            border-radius: 20px; font-weight: bold; font-size: 18px;
+            position: sticky; 
+            top: 0; 
+            background: rgba(255, 255, 255, 0.75);
+            backdrop-filter: blur(16px); /* Efek Glassmorphism */
+            -webkit-backdrop-filter: blur(16px);
+            padding: 16px 24px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            z-index: 100; 
+            margin-bottom: 30px; 
+            border-radius: 0 0 20px 20px;
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
         }
 
+        .header-info {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .header-info strong { font-size: 16px; }
+        .header-info span { font-size: 12px; color: var(--text-muted); }
+        
+        .timer-badge {
+            background: var(--primary); 
+            color: white; 
+            padding: 8px 16px;
+            border-radius: 20px; 
+            font-weight: 600; 
+            font-size: 16px;
+            font-variant-numeric: tabular-nums;
+            transition: background-color 0.3s ease;
+        }
+
+        @keyframes blink {
+            0% { opacity: 1; }
+            50% { opacity: 0.5; }
+            100% { opacity: 1; }
+        }
+        .timer-badge.danger { background: var(--danger); animation: blink 1s infinite; }
+        .timer-badge.warning { background: var(--warning); }
+
         .question-card {
-            background: var(--surface); padding: 25px; border-radius: 12px;
-            margin-bottom: 20px; box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            background: var(--bg-card); 
+            padding: 30px; 
+            border-radius: 20px;
+            margin-bottom: 24px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
+            transition: opacity 0.3s ease;
         }
         
-        .question-card h3 { margin-bottom: 10px; font-size: 16px; }
+        .question-card h3 { 
+            margin-bottom: 16px; 
+            font-size: 16px; 
+            font-weight: 500;
+            line-height: 1.6;
+        }
         
         textarea {
-            width: 100%; min-height: 150px; padding: 12px; border: 1px solid var(--border);
-            border-radius: 6px; font-size: 15px; font-family: inherit;
-            resize: vertical; outline: none;
+            width: 100%; 
+            min-height: 180px; 
+            padding: 16px; 
+            background-color: var(--bg-body);
+            border: 2px solid transparent;
+            border-radius: 12px; 
+            font-size: 15px; 
+            font-family: inherit;
+            resize: vertical; 
+            outline: none;
+            transition: all 0.2s ease;
+            color: var(--text-main);
         }
-        textarea:focus { border-color: var(--primary); }
+        textarea:focus { 
+            background-color: var(--bg-card);
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
+        }
+
+        .footer-textarea {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 8px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
 
         .unselectable { user-select: none; -webkit-user-select: none; }
     </style>
@@ -98,24 +206,26 @@
 
     <div id="login-section">
         <div class="card">
-            <h2>Ujian Kewarganegaraan</h2>
-            <p style="margin-bottom: 20px; font-size: 14px; color: #6b7280;">Waktu Ujian: 60 Menit. Dilarang berpindah tab.</p>
+            <h2>Ujian Esai</h2>
+            <p class="subtitle">Kewarganegaraan • Waktu: 60 Menit</p>
             <div class="form-group">
-                <label for="nim">NIM</label>
-                <input type="number" id="nim" required placeholder="Masukkan NIM Anda">
+                <label for="nim">Nomor Induk Mahasiswa (NIM)</label>
+                <input type="number" id="nim" required placeholder="Contoh: 12160016">
             </div>
             <div class="form-group">
                 <label for="nama">Nama Lengkap</label>
-                <input type="text" id="nama" required placeholder="Masukkan Nama Anda">
+                <input type="text" id="nama" required placeholder="Masukkan nama Anda">
             </div>
-            <button onclick="startExam()">Mulai Ujian</button>
+            <button class="btn-primary" onclick="startExam()">Mulai Ujian</button>
         </div>
     </div>
 
     <div id="exam-section" class="container">
         <div class="sticky-header">
-            <div>
-                <strong id="display-nama">-</strong> | <span id="display-nim">-</span>
+            <div class="header-info">
+                <strong id="display-nama">-</strong>
+                <span id="display-nim">-</span>
+                <span id="progress-text" style="color: var(--primary); font-weight: 600; margin-top: 4px;">Terjawab: 0/5</span>
             </div>
             <div class="timer-badge" id="timer">60:00</div>
         </div>
@@ -123,37 +233,42 @@
         <div id="questions-container" class="unselectable">
             <div class="question-card">
                 <h3>1. Analisis bagaimana nilai-nilai Pancasila dapat diimplementasikan untuk menanggulangi penyebaran radikalisme dan polarisasi di era digital. Berikan contoh kasus nyatanya.</h3>
-                <textarea id="ans1" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <textarea id="ans1" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <div class="footer-textarea"><span id="wc1">0 kata</span></div>
             </div>
             
             <div class="question-card">
                 <h3>2. Evaluasi pelaksanaan sistem demokrasi di Indonesia pasca-Reformasi. Apakah praktik politik saat ini sudah sepenuhnya sejalan dengan Sila Keempat Pancasila dan UUD 1945?</h3>
-                <textarea id="ans2" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <textarea id="ans2" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <div class="footer-textarea"><span id="wc2">0 kata</span></div>
             </div>
 
             <div class="question-card">
                 <h3>3. Jelaskan faktor fundamental penyebab ketimpangan di mana warga negara seringkali lebih aktif menuntut hak asasi daripada melaksanakan kewajiban konstitusionalnya.</h3>
-                <textarea id="ans3" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <textarea id="ans3" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <div class="footer-textarea"><span id="wc3">0 kata</span></div>
             </div>
 
             <div class="question-card">
                 <h3>4. Bagaimana konsep Wawasan Nusantara seharusnya diaplikasikan oleh pemerintah dalam menyelesaikan konflik kepentingan internal, seperti sengketa agraria antara masyarakat dan korporasi?</h3>
-                <textarea id="ans4" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <textarea id="ans4" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <div class="footer-textarea"><span id="wc4">0 kata</span></div>
             </div>
 
             <div class="question-card">
                 <h3>5. Identifikasi ancaman non-militer paling signifikan bagi ketahanan nasional Indonesia dalam satu dekade ke depan dan jelaskan strategi mitigasinya berdasarkan pendekatan Asta Gatra.</h3>
-                <textarea id="ans5" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <textarea id="ans5" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                <div class="footer-textarea"><span id="wc5">0 kata</span></div>
             </div>
         </div>
 
-        <button id="btn-submit" onclick="submitExam('Manual')">Kumpulkan Jawaban</button>
+        <button id="btn-submit" class="btn-primary" onclick="confirmSubmit()">Kumpulkan Jawaban</button>
     </div>
 
     <div id="finish-section" style="display: none;">
         <div class="card">
-            <h2 style="color: #10b981;">Ujian Selesai</h2>
-            <p id="finish-message">Jawaban Anda telah berhasil disimpan.</p>
+            <h2 style="color: var(--success);">Ujian Selesai</h2>
+            <p class="subtitle" id="finish-message">Jawaban Anda telah berhasil dienkripsi dan disimpan. Silakan tutup halaman ini.</p>
         </div>
     </div>
 
@@ -163,13 +278,48 @@
         
         let studentNIM = "";
         let studentNama = "";
-        let timeRemaining = 60 * 60; // 60 Menit
+        let timeRemaining = 60 * 60; 
         let timerInterval;
         let isExamActive = false;
 
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('copy', event => event.preventDefault());
         document.addEventListener('paste', event => event.preventDefault());
+
+        // Event Listener untuk menghitung kata dan progres
+        const textareas = document.querySelectorAll('.exam-answer');
+        textareas.forEach((textarea, index) => {
+            textarea.addEventListener('input', function() {
+                // Hitung kata
+                const text = this.value.trim();
+                const wordCount = text === "" ? 0 : text.split(/\s+/).length;
+                document.getElementById(`wc${index + 1}`).textContent = `${wordCount} kata`;
+                
+                // Hitung progres
+                updateProgress();
+            });
+            
+            // Efek fokus meredupkan card lain
+            textarea.addEventListener('focus', function() {
+                document.querySelectorAll('.question-card').forEach(card => {
+                    if (card !== this.parentElement) card.style.opacity = '0.4';
+                });
+            });
+            
+            textarea.addEventListener('blur', function() {
+                document.querySelectorAll('.question-card').forEach(card => {
+                    card.style.opacity = '1';
+                });
+            });
+        });
+
+        function updateProgress() {
+            let answered = 0;
+            textareas.forEach(ta => {
+                if(ta.value.trim().length > 10) answered++;
+            });
+            document.getElementById('progress-text').textContent = `Terjawab: ${answered}/5`;
+        }
 
         function startExam() {
             studentNIM = document.getElementById('nim').value.trim();
@@ -194,28 +344,36 @@
             isExamActive = true;
             startTimer();
             setupAntiCheat();
+            window.scrollTo(0, 0);
         }
 
         function startTimer() {
+            const timerBadge = document.getElementById('timer');
             timerInterval = setInterval(() => {
                 timeRemaining--;
                 
                 let minutes = Math.floor(timeRemaining / 60);
                 let seconds = timeRemaining % 60;
                 
-                document.getElementById('timer').textContent = 
+                timerBadge.textContent = 
                     (minutes < 10 ? "0" : "") + minutes + ":" + 
                     (seconds < 10 ? "0" : "") + seconds;
 
+                // Perubahan warna dinamis
+                if (timeRemaining <= 300) { // Sisa 5 Menit (Merah & Kedip)
+                    timerBadge.className = 'timer-badge danger';
+                } else if (timeRemaining <= 900) { // Sisa 15 Menit (Kuning)
+                    timerBadge.className = 'timer-badge warning';
+                }
+
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
-                    alert("Waktu habis! Jawaban akan dikirim secara otomatis.");
-                    submitExam('Waktu Habis');
+                    alert("Waktu habis! Jawaban Anda akan dikirim secara otomatis.");
+                    executeSubmit('Waktu Habis');
                 }
             }, 1000);
         }
 
-        // Fungsi khusus agar bisa dimatikan nanti
         function handleVisibilityChange() {
             if (document.hidden && isExamActive) {
                 sendLogPelanggaran("Pindah Tab / Minimize Browser");
@@ -239,28 +397,31 @@
 
             fetch(GAS_URL, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 redirect: "follow",
                 body: JSON.stringify(payload)
             }).catch(e => console.error(e));
         }
 
-        function submitExam(alasan) {
+        function confirmSubmit() {
+            if(confirm("Apakah Anda yakin ingin mengumpulkan ujian sekarang? Jawaban tidak dapat diubah lagi.")) {
+                executeSubmit('Manual');
+            }
+        }
+
+        function executeSubmit(alasan) {
             if(GAS_URL === "URL_GAS_ANDA_DISINI") {
                 alert("URL GAS belum dimasukkan ke dalam kode HTML.");
                 return;
             }
 
-            // Hentikan ujian dan matikan pendeteksi tab agar tidak ada log masuk lagi
             isExamActive = false;
             clearInterval(timerInterval);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
             
             const btnSubmit = document.getElementById('btn-submit');
             btnSubmit.disabled = true;
-            btnSubmit.textContent = "Mengirim Data... Mohon tunggu";
+            btnSubmit.textContent = "Mengirim Data... Mohon Tunggu";
 
             const payload = {
                 action: "submit_jawaban",
@@ -276,9 +437,7 @@
 
             fetch(GAS_URL, {
                 method: "POST",
-                headers: {
-                    "Content-Type": "text/plain;charset=utf-8"
-                },
+                headers: { "Content-Type": "text/plain;charset=utf-8" },
                 redirect: "follow",
                 body: JSON.stringify(payload)
             })
@@ -295,10 +454,9 @@
                 alert("Gagal terhubung ke server Google. Pastikan URL GAS sudah benar.");
                 btnSubmit.disabled = false;
                 btnSubmit.textContent = "Kumpulkan Jawaban";
-                
-                // Jika gagal kirim, aktifkan kembali ujian dan sensornya
                 isExamActive = true; 
                 document.addEventListener("visibilitychange", handleVisibilityChange);
+                if (alasan === 'Manual') startTimer(); 
             });
         }
 
