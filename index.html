@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ujian Esai Kewarganegaraan</title>
+    <title>Ujian Esai</title>
     <style>
         :root {
             --bg-body: #F5F5F7;
@@ -15,12 +15,13 @@
             --danger: #FF3B30;
             --warning: #FF9500;
             --success: #34C759;
+            --overlay: rgba(0, 0, 0, 0.4);
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             line-height: 1.5;
@@ -29,185 +30,105 @@
 
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
         
-        /* Layar Login & Selesai */
         #login-section, #finish-section {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            padding: 20px;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
         }
         
         .card {
-            background: var(--bg-card);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04);
-            width: 100%;
-            max-width: 420px;
-            text-align: center;
+            background: var(--bg-card); padding: 40px; border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); width: 100%; max-width: 420px; text-align: center;
         }
 
-        .card h2 { 
-            margin-bottom: 8px; 
-            font-size: 24px; 
-            font-weight: 600;
-            letter-spacing: -0.5px;
-        }
-        
-        .card p.subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            margin-bottom: 30px;
-        }
+        .card h2 { margin-bottom: 8px; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
+        .card p.subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
 
         .form-group { margin-bottom: 20px; text-align: left; }
-        .form-group label { 
-            display: block; 
-            margin-bottom: 8px; 
-            font-size: 13px; 
-            font-weight: 500; 
-            color: var(--text-muted);
-        }
+        .form-group label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
         .form-group input {
-            width: 100%; 
-            padding: 14px 16px; 
-            background-color: var(--bg-body);
-            border: 2px solid transparent;
-            border-radius: 12px; 
-            font-size: 16px; 
-            outline: none;
-            transition: all 0.2s ease;
-            color: var(--text-main);
+            width: 100%; padding: 14px 16px; background-color: var(--bg-body);
+            border: 2px solid transparent; border-radius: 12px; font-size: 16px; outline: none; transition: all 0.2s ease; color: var(--text-main);
         }
-        .form-group input:focus { 
-            background-color: var(--bg-card);
-            border-color: var(--primary); 
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
-        }
+        .form-group input:focus { background-color: var(--bg-card); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); }
 
         button.btn-primary {
-            width: 100%; 
-            padding: 14px; 
-            background: var(--primary); 
-            color: white;
-            border: none; 
-            border-radius: 24px; /* Bentuk Kapsul */
-            font-size: 16px; 
-            font-weight: 600;
-            cursor: pointer; 
-            transition: all 0.2s ease;
+            width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 24px;
+            font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
         }
-        button.btn-primary:hover { 
-            background: var(--primary-hover); 
-            transform: scale(0.98);
-        }
-        button.btn-primary:disabled { 
-            background: var(--text-muted); 
-            cursor: not-allowed; 
-            transform: none;
-        }
+        button.btn-primary:hover:not(:disabled) { background: var(--primary-hover); transform: scale(0.98); }
+        button.btn-primary:disabled { background: var(--text-muted); cursor: not-allowed; }
 
-        /* Layar Ujian */
+        button.btn-secondary {
+            width: 100%; padding: 14px; background: #E5E5EA; color: var(--text-main); border: none; border-radius: 24px;
+            font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
+        }
+        button.btn-secondary:hover { background: #D1D1D6; transform: scale(0.98); }
+
         #exam-section { display: none; padding-bottom: 80px; }
         
         .sticky-header {
-            position: sticky; 
-            top: 0; 
-            background: rgba(255, 255, 255, 0.75);
-            backdrop-filter: blur(16px); /* Efek Glassmorphism */
-            -webkit-backdrop-filter: blur(16px);
-            padding: 16px 24px; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center;
-            z-index: 100; 
-            margin-bottom: 30px; 
-            border-radius: 0 0 20px 20px;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            box-shadow: 0 4px 16px rgba(0,0,0,0.02);
+            position: sticky; top: 0; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+            padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; z-index: 100; margin-bottom: 30px; 
+            border-radius: 0 0 20px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 16px rgba(0,0,0,0.02);
         }
 
-        .header-info {
-            display: flex;
-            flex-direction: column;
-        }
-
+        .header-info { display: flex; flex-direction: column; }
         .header-info strong { font-size: 16px; }
         .header-info span { font-size: 12px; color: var(--text-muted); }
         
         .timer-badge {
-            background: var(--primary); 
-            color: white; 
-            padding: 8px 16px;
-            border-radius: 20px; 
-            font-weight: 600; 
-            font-size: 16px;
-            font-variant-numeric: tabular-nums;
-            transition: background-color 0.3s ease;
+            background: var(--primary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 16px;
+            font-variant-numeric: tabular-nums; transition: background-color 0.3s ease;
         }
-
-        @keyframes blink {
-            0% { opacity: 1; }
-            50% { opacity: 0.5; }
-            100% { opacity: 1; }
-        }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         .timer-badge.danger { background: var(--danger); animation: blink 1s infinite; }
         .timer-badge.warning { background: var(--warning); }
 
         .question-card {
-            background: var(--bg-card); 
-            padding: 30px; 
-            border-radius: 20px;
-            margin-bottom: 24px; 
-            box-shadow: 0 2px 12px rgba(0,0,0,0.03);
-            transition: opacity 0.3s ease;
+            background: var(--bg-card); padding: 30px; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.03); transition: opacity 0.3s ease;
         }
-        
-        .question-card h3 { 
-            margin-bottom: 16px; 
-            font-size: 16px; 
-            font-weight: 500;
-            line-height: 1.6;
-        }
+        .question-card h3 { margin-bottom: 16px; font-size: 16px; font-weight: 500; line-height: 1.6; }
         
         textarea {
-            width: 100%; 
-            min-height: 180px; 
-            padding: 16px; 
-            background-color: var(--bg-body);
-            border: 2px solid transparent;
-            border-radius: 12px; 
-            font-size: 15px; 
-            font-family: inherit;
-            resize: vertical; 
-            outline: none;
-            transition: all 0.2s ease;
-            color: var(--text-main);
+            width: 100%; min-height: 180px; padding: 16px; background-color: var(--bg-body); border: 2px solid transparent; border-radius: 12px; 
+            font-size: 15px; font-family: inherit; resize: vertical; outline: none; transition: all 0.2s ease; color: var(--text-main);
         }
-        textarea:focus { 
-            background-color: var(--bg-card);
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15);
-        }
+        textarea:focus { background-color: var(--bg-card); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); }
 
-        .footer-textarea {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 8px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
+        .footer-textarea { display: flex; justify-content: flex-end; margin-top: 8px; font-size: 12px; color: var(--text-muted); }
         .unselectable { user-select: none; -webkit-user-select: none; }
+
+        /* Custom Modal (Pop-up) */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay);
+            display: flex; justify-content: center; align-items: center; z-index: 999;
+            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
+        }
+        .modal-overlay.active { opacity: 1; visibility: visible; }
+        .modal-box {
+            background: var(--bg-card); width: 90%; max-width: 360px; padding: 30px; border-radius: 20px;
+            text-align: center; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        .modal-overlay.active .modal-box { transform: translateY(0); }
+        .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+        .modal-message { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
+        .modal-actions { display: flex; gap: 12px; }
     </style>
 </head>
 <body>
 
+    <div id="custom-modal" class="modal-overlay">
+        <div class="modal-box">
+            <h3 class="modal-title" id="modal-title">Info</h3>
+            <p class="modal-message" id="modal-message">Pesan di sini.</p>
+            <div class="modal-actions" id="modal-actions">
+                </div>
+        </div>
+    </div>
+
     <div id="login-section">
         <div class="card">
             <h2>Ujian Esai</h2>
-            <p class="subtitle">Kewarganegaraan • Waktu: 60 Menit</p>
+            <p class="subtitle" id="status-load">Sedang memuat soal ujian...</p>
             <div class="form-group">
                 <label for="nim">Nomor Induk Mahasiswa (NIM)</label>
                 <input type="number" id="nim" required placeholder="Contoh: 12160016">
@@ -216,7 +137,7 @@
                 <label for="nama">Nama Lengkap</label>
                 <input type="text" id="nama" required placeholder="Masukkan nama Anda">
             </div>
-            <button class="btn-primary" onclick="startExam()">Mulai Ujian</button>
+            <button class="btn-primary" id="btn-start" onclick="startExam()" disabled>Memuat Server...</button>
         </div>
     </div>
 
@@ -225,42 +146,13 @@
             <div class="header-info">
                 <strong id="display-nama">-</strong>
                 <span id="display-nim">-</span>
-                <span id="progress-text" style="color: var(--primary); font-weight: 600; margin-top: 4px;">Terjawab: 0/5</span>
+                <span id="progress-text" style="color: var(--primary); font-weight: 600; margin-top: 4px;">Terjawab: 0/0</span>
             </div>
             <div class="timer-badge" id="timer">60:00</div>
         </div>
 
         <div id="questions-container" class="unselectable">
-            <div class="question-card">
-                <h3>1. Analisis bagaimana nilai-nilai Pancasila dapat diimplementasikan untuk menanggulangi penyebaran radikalisme dan polarisasi di era digital. Berikan contoh kasus nyatanya.</h3>
-                <textarea id="ans1" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                <div class="footer-textarea"><span id="wc1">0 kata</span></div>
             </div>
-            
-            <div class="question-card">
-                <h3>2. Evaluasi pelaksanaan sistem demokrasi di Indonesia pasca-Reformasi. Apakah praktik politik saat ini sudah sepenuhnya sejalan dengan Sila Keempat Pancasila dan UUD 1945?</h3>
-                <textarea id="ans2" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                <div class="footer-textarea"><span id="wc2">0 kata</span></div>
-            </div>
-
-            <div class="question-card">
-                <h3>3. Jelaskan faktor fundamental penyebab ketimpangan di mana warga negara seringkali lebih aktif menuntut hak asasi daripada melaksanakan kewajiban konstitusionalnya.</h3>
-                <textarea id="ans3" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                <div class="footer-textarea"><span id="wc3">0 kata</span></div>
-            </div>
-
-            <div class="question-card">
-                <h3>4. Bagaimana konsep Wawasan Nusantara seharusnya diaplikasikan oleh pemerintah dalam menyelesaikan konflik kepentingan internal, seperti sengketa agraria antara masyarakat dan korporasi?</h3>
-                <textarea id="ans4" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                <div class="footer-textarea"><span id="wc4">0 kata</span></div>
-            </div>
-
-            <div class="question-card">
-                <h3>5. Identifikasi ancaman non-militer paling signifikan bagi ketahanan nasional Indonesia dalam satu dekade ke depan dan jelaskan strategi mitigasinya berdasarkan pendekatan Asta Gatra.</h3>
-                <textarea id="ans5" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                <div class="footer-textarea"><span id="wc5">0 kata</span></div>
-            </div>
-        </div>
 
         <button id="btn-submit" class="btn-primary" onclick="confirmSubmit()">Kumpulkan Jawaban</button>
     </div>
@@ -273,60 +165,135 @@
     </div>
 
     <script>
-        // WAJIB GANTI URL DI BAWAH INI DENGAN URL WEB APP GAS ANDA
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxigCtgQu6QDdujwy7C4mpRnhXjb-6j6y1Vh2eSjfq7onWurg_AhfsbhvqqtzkloHEy/exec"; 
+        // WAJIB GANTI URL DI BAWAH INI
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxtWGh-eVEgzeOg2sJ5YvsLrz9AKd3MnnVMlFwT5rtmu5kaUrciILuKULIcPIcLbSA/exec"; 
         
         let studentNIM = "";
         let studentNama = "";
         let timeRemaining = 60 * 60; 
         let timerInterval;
         let isExamActive = false;
+        let totalQuestions = 0;
 
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('copy', event => event.preventDefault());
         document.addEventListener('paste', event => event.preventDefault());
 
-        // Event Listener untuk menghitung kata dan progres
-        const textareas = document.querySelectorAll('.exam-answer');
-        textareas.forEach((textarea, index) => {
-            textarea.addEventListener('input', function() {
-                // Hitung kata
-                const text = this.value.trim();
-                const wordCount = text === "" ? 0 : text.split(/\s+/).length;
-                document.getElementById(`wc${index + 1}`).textContent = `${wordCount} kata`;
-                
-                // Hitung progres
-                updateProgress();
-            });
-            
-            // Efek fokus meredupkan card lain
-            textarea.addEventListener('focus', function() {
-                document.querySelectorAll('.question-card').forEach(card => {
-                    if (card !== this.parentElement) card.style.opacity = '0.4';
-                });
-            });
-            
-            textarea.addEventListener('blur', function() {
-                document.querySelectorAll('.question-card').forEach(card => {
-                    card.style.opacity = '1';
-                });
-            });
-        });
+        // Modal Controller
+        function showModal(title, message, type, onConfirmCallback = null) {
+            document.getElementById('modal-title').textContent = title;
+            document.getElementById('modal-message').textContent = message;
+            const actions = document.getElementById('modal-actions');
+            actions.innerHTML = "";
 
-        function updateProgress() {
-            let answered = 0;
-            textareas.forEach(ta => {
-                if(ta.value.trim().length > 10) answered++;
-            });
-            document.getElementById('progress-text').textContent = `Terjawab: ${answered}/5`;
+            if (type === 'alert') {
+                const btn = document.createElement('button');
+                btn.className = "btn-primary";
+                btn.textContent = "Mengerti";
+                btn.onclick = () => closeModal();
+                actions.appendChild(btn);
+            } else if (type === 'confirm') {
+                const btnCancel = document.createElement('button');
+                btnCancel.className = "btn-secondary";
+                btnCancel.textContent = "Batal";
+                btnCancel.onclick = () => closeModal();
+                
+                const btnOk = document.createElement('button');
+                btnOk.className = "btn-primary";
+                btnOk.textContent = "Ya, Kumpulkan";
+                btnOk.onclick = () => { closeModal(); if(onConfirmCallback) onConfirmCallback(); };
+                
+                actions.appendChild(btnCancel);
+                actions.appendChild(btnOk);
+            }
+            document.getElementById('custom-modal').classList.add('active');
         }
+
+        function closeModal() {
+            document.getElementById('custom-modal').classList.remove('active');
+        }
+
+        // Fetch Soal Dinamis
+        async function fetchSoal() {
+            if(GAS_URL === "URL_GAS_ANDA_DISINI") {
+                document.getElementById('status-load').textContent = "ERROR: URL GAS Belum Diisi";
+                return;
+            }
+            try {
+                const url = GAS_URL + "?action=get_soal&nocache=" + new Date().getTime();
+                const res = await fetch(url);
+                const soalList = await res.json();
+                
+                totalQuestions = soalList.length;
+                if(totalQuestions === 0) throw new Error("Sheet Soal Kosong");
+
+                generateHTMLSoal(soalList);
+                document.getElementById('progress-text').textContent = `Terjawab: 0/${totalQuestions}`;
+                
+                document.getElementById('status-load').textContent = `Kewarganegaraan • Waktu: 60 Menit • ${totalQuestions} Soal`;
+                const btnStart = document.getElementById('btn-start');
+                btnStart.disabled = false;
+                btnStart.textContent = "Mulai Ujian";
+
+            } catch(e) {
+                document.getElementById('status-load').textContent = "Gagal memuat soal. Silakan refresh (F5).";
+                console.error(e);
+            }
+        }
+
+        function generateHTMLSoal(soalList) {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = "";
+            
+            soalList.forEach((soal, index) => {
+                const i = index + 1;
+                const html = `
+                    <div class="question-card">
+                        <h3>${soal.nomor}. ${soal.pertanyaan}</h3>
+                        <textarea id="ans${i}" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
+                        <div class="footer-textarea"><span id="wc${i}">0 kata</span></div>
+                    </div>
+                `;
+                container.insertAdjacentHTML('beforeend', html);
+            });
+            attachTextareaEvents();
+        }
+
+        function attachTextareaEvents() {
+            const textareas = document.querySelectorAll('.exam-answer');
+            textareas.forEach((textarea, index) => {
+                textarea.addEventListener('input', function() {
+                    const text = this.value.trim();
+                    const wordCount = text === "" ? 0 : text.split(/\s+/).length;
+                    document.getElementById(`wc${index + 1}`).textContent = `${wordCount} kata`;
+                    
+                    let answered = 0;
+                    document.querySelectorAll('.exam-answer').forEach(ta => {
+                        if(ta.value.trim().length > 10) answered++;
+                    });
+                    document.getElementById('progress-text').textContent = `Terjawab: ${answered}/${totalQuestions}`;
+                });
+                
+                textarea.addEventListener('focus', function() {
+                    document.querySelectorAll('.question-card').forEach(card => {
+                        if (card !== this.parentElement) card.style.opacity = '0.4';
+                    });
+                });
+                
+                textarea.addEventListener('blur', function() {
+                    document.querySelectorAll('.question-card').forEach(card => { card.style.opacity = '1'; });
+                });
+            });
+        }
+
+        window.onload = fetchSoal;
 
         function startExam() {
             studentNIM = document.getElementById('nim').value.trim();
             studentNama = document.getElementById('nama').value.trim();
 
             if (!studentNIM || !studentNama) {
-                alert("Harap isi NIM dan Nama terlebih dahulu.");
+                showModal("Perhatian", "Harap isi NIM dan Nama terlebih dahulu.", "alert");
                 return;
             }
 
@@ -351,24 +318,17 @@
             const timerBadge = document.getElementById('timer');
             timerInterval = setInterval(() => {
                 timeRemaining--;
-                
                 let minutes = Math.floor(timeRemaining / 60);
                 let seconds = timeRemaining % 60;
                 
-                timerBadge.textContent = 
-                    (minutes < 10 ? "0" : "") + minutes + ":" + 
-                    (seconds < 10 ? "0" : "") + seconds;
+                timerBadge.textContent = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
 
-                // Perubahan warna dinamis
-                if (timeRemaining <= 300) { // Sisa 5 Menit (Merah & Kedip)
-                    timerBadge.className = 'timer-badge danger';
-                } else if (timeRemaining <= 900) { // Sisa 15 Menit (Kuning)
-                    timerBadge.className = 'timer-badge warning';
-                }
+                if (timeRemaining <= 300) timerBadge.className = 'timer-badge danger';
+                else if (timeRemaining <= 900) timerBadge.className = 'timer-badge warning';
 
                 if (timeRemaining <= 0) {
                     clearInterval(timerInterval);
-                    alert("Waktu habis! Jawaban Anda akan dikirim secara otomatis.");
+                    showModal("Waktu Habis", "Waktu Anda telah habis. Sistem akan mengirim jawaban secara otomatis.", "alert");
                     executeSubmit('Waktu Habis');
                 }
             }, 1000);
@@ -386,86 +346,53 @@
 
         function sendLogPelanggaran(jenisPelanggaran) {
             if(GAS_URL === "URL_GAS_ANDA_DISINI") return;
-            
-            const payload = {
-                action: "log_pelanggaran",
-                nim: studentNIM,
-                nama: studentNama,
-                pelanggaran: jenisPelanggaran,
-                waktu: new Date().toLocaleString("id-ID")
-            };
-
-            fetch(GAS_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                redirect: "follow",
-                body: JSON.stringify(payload)
-            }).catch(e => console.error(e));
+            const payload = { action: "log_pelanggaran", nim: studentNIM, nama: studentNama, pelanggaran: jenisPelanggaran, waktu: new Date().toLocaleString("id-ID") };
+            fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload) }).catch(e => console.error(e));
         }
 
         function confirmSubmit() {
-            if(confirm("Apakah Anda yakin ingin mengumpulkan ujian sekarang? Jawaban tidak dapat diubah lagi.")) {
+            showModal("Konfirmasi Pengumpulan", "Apakah Anda yakin ingin mengumpulkan ujian sekarang? Jawaban tidak dapat diubah lagi.", "confirm", () => {
                 executeSubmit('Manual');
-            }
+            });
         }
 
         function executeSubmit(alasan) {
-            if(GAS_URL === "URL_GAS_ANDA_DISINI") {
-                alert("URL GAS belum dimasukkan ke dalam kode HTML.");
-                return;
-            }
-
             isExamActive = false;
             clearInterval(timerInterval);
             document.removeEventListener("visibilitychange", handleVisibilityChange);
             
             const btnSubmit = document.getElementById('btn-submit');
             btnSubmit.disabled = true;
-            btnSubmit.textContent = "Mengirim Data... Mohon Tunggu";
+            btnSubmit.textContent = "Mengirim Data...";
+
+            let arrayJawaban = [];
+            for (let i = 1; i <= totalQuestions; i++) {
+                arrayJawaban.push(document.getElementById(`ans${i}`).value);
+            }
 
             const payload = {
-                action: "submit_jawaban",
-                nim: studentNIM,
-                nama: studentNama,
-                ans1: document.getElementById('ans1').value,
-                ans2: document.getElementById('ans2').value,
-                ans3: document.getElementById('ans3').value,
-                ans4: document.getElementById('ans4').value,
-                ans5: document.getElementById('ans5').value,
-                status_submit: alasan
+                action: "submit_jawaban", nim: studentNIM, nama: studentNama, jawaban: arrayJawaban, status_submit: alasan
             };
 
             fetch(GAS_URL, {
-                method: "POST",
-                headers: { "Content-Type": "text/plain;charset=utf-8" },
-                redirect: "follow",
-                body: JSON.stringify(payload)
+                method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload)
             })
-            .then(response => response.json())
+            .then(res => res.json())
             .then(data => {
                 if(data.status === "success") {
-                    tampilkanSelesai();
-                } else {
-                    throw new Error(data.message);
-                }
+                    if(document.exitFullscreen) document.exitFullscreen().catch(() => {});
+                    document.getElementById('exam-section').style.display = 'none';
+                    document.getElementById('finish-section').style.display = 'flex';
+                } else throw new Error(data.message);
             })
             .catch(error => {
-                console.error("Error:", error);
-                alert("Gagal terhubung ke server Google. Pastikan URL GAS sudah benar.");
+                showModal("Gagal Mengirim", "Gagal terhubung ke server Google. Pastikan URL GAS sudah benar.", "alert");
                 btnSubmit.disabled = false;
                 btnSubmit.textContent = "Kumpulkan Jawaban";
                 isExamActive = true; 
                 document.addEventListener("visibilitychange", handleVisibilityChange);
                 if (alasan === 'Manual') startTimer(); 
             });
-        }
-
-        function tampilkanSelesai() {
-            if(document.exitFullscreen) {
-                document.exitFullscreen().catch(() => {});
-            }
-            document.getElementById('exam-section').style.display = 'none';
-            document.getElementById('finish-section').style.display = 'flex';
         }
     </script>
 </body>
