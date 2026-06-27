@@ -5,108 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ujian Esai</title>
     <style>
-        :root {
-            --bg-body: #F5F5F7;
-            --bg-card: #FFFFFF;
-            --text-main: #1D1D1F;
-            --text-muted: #86868B;
-            --primary: #0071E3;
-            --primary-hover: #0077ED;
-            --danger: #FF3B30;
-            --warning: #FF9500;
-            --success: #34C759;
-            --overlay: rgba(0, 0, 0, 0.4);
-        }
-        
+        :root { --bg-body: #F5F5F7; --bg-card: #FFFFFF; --text-main: #1D1D1F; --text-muted: #86868B; --primary: #0071E3; --primary-hover: #0077ED; --danger: #FF3B30; --warning: #FF9500; --success: #34C759; --overlay: rgba(0, 0, 0, 0.4); }
         * { box-sizing: border-box; margin: 0; padding: 0; }
-        
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            line-height: 1.5;
-            -webkit-font-smoothing: antialiased;
-        }
-
+        body { font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif; background-color: var(--bg-body); color: var(--text-main); line-height: 1.5; -webkit-font-smoothing: antialiased; }
         .container { max-width: 800px; margin: 0 auto; padding: 20px; }
-        
-        #login-section, #finish-section {
-            display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px;
-        }
-        
-        .card {
-            background: var(--bg-card); padding: 40px; border-radius: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); width: 100%; max-width: 420px; text-align: center;
-        }
-
+        #login-section, #finish-section { display: flex; justify-content: center; align-items: center; min-height: 100vh; padding: 20px; }
+        .card { background: var(--bg-card); padding: 40px; border-radius: 20px; box-shadow: 0 8px 32px rgba(0, 0, 0, 0.04); width: 100%; max-width: 420px; text-align: center; }
         .card h2 { margin-bottom: 8px; font-size: 24px; font-weight: 600; letter-spacing: -0.5px; }
         .card p.subtitle { font-size: 14px; color: var(--text-muted); margin-bottom: 30px; }
-
         .form-group { margin-bottom: 20px; text-align: left; }
         .form-group label { display: block; margin-bottom: 8px; font-size: 13px; font-weight: 500; color: var(--text-muted); }
-        .form-group input {
-            width: 100%; padding: 14px 16px; background-color: var(--bg-body);
-            border: 2px solid transparent; border-radius: 12px; font-size: 16px; outline: none; transition: all 0.2s ease; color: var(--text-main);
-        }
+        .form-group input { width: 100%; padding: 14px 16px; background-color: var(--bg-body); border: 2px solid transparent; border-radius: 12px; font-size: 16px; outline: none; transition: all 0.2s ease; color: var(--text-main); }
         .form-group input:focus { background-color: var(--bg-card); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); }
-
-        button.btn-primary {
-            width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 24px;
-            font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-        }
+        button.btn-primary { width: 100%; padding: 14px; background: var(--primary); color: white; border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
         button.btn-primary:hover:not(:disabled) { background: var(--primary-hover); transform: scale(0.98); }
         button.btn-primary:disabled { background: var(--text-muted); cursor: not-allowed; }
-
-        button.btn-secondary {
-            width: 100%; padding: 14px; background: #E5E5EA; color: var(--text-main); border: none; border-radius: 24px;
-            font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease;
-        }
+        button.btn-secondary { width: 100%; padding: 14px; background: #E5E5EA; color: var(--text-main); border: none; border-radius: 24px; font-size: 16px; font-weight: 600; cursor: pointer; transition: all 0.2s ease; }
         button.btn-secondary:hover { background: #D1D1D6; transform: scale(0.98); }
-
         #exam-section { display: none; padding-bottom: 80px; }
-        
-        .sticky-header {
-            position: sticky; top: 0; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-            padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; z-index: 100; margin-bottom: 30px; 
-            border-radius: 0 0 20px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 16px rgba(0,0,0,0.02);
-        }
-
+        .sticky-header { position: sticky; top: 0; background: rgba(255, 255, 255, 0.75); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); padding: 16px 24px; display: flex; justify-content: space-between; align-items: center; z-index: 100; margin-bottom: 30px; border-radius: 0 0 20px 20px; border-bottom: 1px solid rgba(0,0,0,0.05); box-shadow: 0 4px 16px rgba(0,0,0,0.02); }
         .header-info { display: flex; flex-direction: column; }
         .header-info strong { font-size: 16px; }
         .header-info span { font-size: 12px; color: var(--text-muted); }
-        
-        .timer-badge {
-            background: var(--primary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 16px;
-            font-variant-numeric: tabular-nums; transition: background-color 0.3s ease;
-        }
+        .timer-badge { background: var(--primary); color: white; padding: 8px 16px; border-radius: 20px; font-weight: 600; font-size: 16px; font-variant-numeric: tabular-nums; transition: background-color 0.3s ease; }
         @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.5; } 100% { opacity: 1; } }
         .timer-badge.danger { background: var(--danger); animation: blink 1s infinite; }
         .timer-badge.warning { background: var(--warning); }
-
-        .question-card {
-            background: var(--bg-card); padding: 30px; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.03); transition: opacity 0.3s ease;
-        }
+        .question-card { background: var(--bg-card); padding: 30px; border-radius: 20px; margin-bottom: 24px; box-shadow: 0 2px 12px rgba(0,0,0,0.03); transition: opacity 0.3s ease; }
         .question-card h3 { margin-bottom: 16px; font-size: 16px; font-weight: 500; line-height: 1.6; }
-        
-        textarea {
-            width: 100%; min-height: 180px; padding: 16px; background-color: var(--bg-body); border: 2px solid transparent; border-radius: 12px; 
-            font-size: 15px; font-family: inherit; resize: vertical; outline: none; transition: all 0.2s ease; color: var(--text-main);
-        }
+        textarea { width: 100%; min-height: 180px; padding: 16px; background-color: var(--bg-body); border: 2px solid transparent; border-radius: 12px; font-size: 15px; font-family: inherit; resize: vertical; outline: none; transition: all 0.2s ease; color: var(--text-main); }
         textarea:focus { background-color: var(--bg-card); border-color: var(--primary); box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.15); }
-
         .footer-textarea { display: flex; justify-content: flex-end; margin-top: 8px; font-size: 12px; color: var(--text-muted); }
         .unselectable { user-select: none; -webkit-user-select: none; }
-
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay);
-            display: flex; justify-content: center; align-items: center; z-index: 999;
-            opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px);
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: var(--overlay); display: flex; justify-content: center; align-items: center; z-index: 999; opacity: 0; visibility: hidden; transition: all 0.3s ease; backdrop-filter: blur(4px); }
         .modal-overlay.active { opacity: 1; visibility: visible; }
-        .modal-box {
-            background: var(--bg-card); width: 90%; max-width: 360px; padding: 30px; border-radius: 20px;
-            text-align: center; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.2);
-        }
+        .modal-box { background: var(--bg-card); width: 90%; max-width: 360px; padding: 30px; border-radius: 20px; text-align: center; transform: translateY(20px); transition: all 0.3s ease; box-shadow: 0 10px 40px rgba(0,0,0,0.2); }
         .modal-overlay.active .modal-box { transform: translateY(0); }
         .modal-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
         .modal-message { font-size: 14px; color: var(--text-muted); margin-bottom: 24px; line-height: 1.5; }
@@ -117,7 +50,7 @@
     <div id="custom-modal" class="modal-overlay">
         <div class="modal-box">
             <h3 class="modal-title" id="modal-title">Info</h3>
-            <p class="modal-message" id="modal-message">Pesan di sini.</p>
+            <p class="modal-message" id="modal-message">Pesan</p>
             <div class="modal-actions" id="modal-actions"></div>
         </div>
     </div>
@@ -147,7 +80,6 @@
             </div>
             <div class="timer-badge" id="timer">60:00</div>
         </div>
-
         <div id="questions-container" class="unselectable"></div>
         <button id="btn-submit" class="btn-primary" onclick="confirmSubmit()">Kumpulkan Jawaban</button>
     </div>
@@ -155,127 +87,65 @@
     <div id="finish-section" style="display: none;">
         <div class="card">
             <h2 style="color: var(--success);">Ujian Selesai</h2>
-            <p class="subtitle" id="finish-message">Jawaban Anda telah berhasil dienkripsi dan disimpan. Silakan tutup halaman ini.</p>
+            <p class="subtitle" id="finish-message">Jawaban Anda telah berhasil disimpan. Silakan tutup halaman ini.</p>
         </div>
     </div>
 
     <script>
         // MASUKKAN URL DEPLOYMENT BARU DI SINI
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec"; 
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbyyNnXYa50NOtcYJ2eTgUFxR97cX60c33BvRKfKZI_ByUPTtBa9vrz5jVbgpfX1qwzb/exec"; 
         
-        let studentNIM = "";
-        let studentNama = "";
-        let timeRemaining = 60 * 60; 
-        let timerInterval;
-        let isExamActive = false;
-        let totalQuestions = 0;
+        let studentNIM = "", studentNama = "", timeRemaining = 3600, timerInterval, isExamActive = false, totalQuestions = 0;
 
         document.addEventListener('contextmenu', event => event.preventDefault());
         document.addEventListener('copy', event => event.preventDefault());
         document.addEventListener('paste', event => event.preventDefault());
 
-        function showModal(title, message, type, onConfirmCallback = null) {
+        function showModal(title, message, type, onConfirm = null) {
             document.getElementById('modal-title').textContent = title;
             document.getElementById('modal-message').textContent = message;
             const actions = document.getElementById('modal-actions');
             actions.innerHTML = "";
-
             if (type === 'alert') {
-                const btn = document.createElement('button');
-                btn.className = "btn-primary";
-                btn.textContent = "Mengerti";
-                btn.onclick = () => closeModal();
-                actions.appendChild(btn);
+                const btn = document.createElement('button'); btn.className = "btn-primary"; btn.textContent = "Mengerti"; btn.onclick = () => closeModal(); actions.appendChild(btn);
             } else if (type === 'confirm') {
-                const btnCancel = document.createElement('button');
-                btnCancel.className = "btn-secondary";
-                btnCancel.textContent = "Batal";
-                btnCancel.onclick = () => closeModal();
-                
-                const btnOk = document.createElement('button');
-                btnOk.className = "btn-primary";
-                btnOk.textContent = "Ya, Kumpulkan";
-                btnOk.onclick = () => { closeModal(); if(onConfirmCallback) onConfirmCallback(); };
-                
-                actions.appendChild(btnCancel);
-                actions.appendChild(btnOk);
+                const btnCancel = document.createElement('button'); btnCancel.className = "btn-secondary"; btnCancel.textContent = "Batal"; btnCancel.onclick = () => closeModal();
+                const btnOk = document.createElement('button'); btnOk.className = "btn-primary"; btnOk.textContent = "Ya, Kumpulkan"; btnOk.onclick = () => { closeModal(); if(onConfirm) onConfirm(); };
+                actions.append(btnCancel, btnOk);
             }
             document.getElementById('custom-modal').classList.add('active');
         }
 
-        function closeModal() {
-            document.getElementById('custom-modal').classList.remove('active');
-        }
+        function closeModal() { document.getElementById('custom-modal').classList.remove('active'); }
 
         async function fetchSoal() {
-            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec") {
-                document.getElementById('status-load').textContent = "ERROR: URL GAS Belum Diisi";
-                return;
-            }
+            if(GAS_URL === "https://script.google.com/macros/s/AKfycbyyNnXYa50NOtcYJ2eTgUFxR97cX60c33BvRKfKZI_ByUPTtBa9vrz5jVbgpfX1qwzb/exec") { document.getElementById('status-load').textContent = "ERROR: URL GAS Kosong"; return; }
             try {
                 const url = GAS_URL + "?action=get_soal&nocache=" + new Date().getTime();
                 const res = await fetch(url);
                 const soalList = await res.json();
-                
                 totalQuestions = soalList.length;
-                if(totalQuestions === 0) throw new Error("Sheet Soal Kosong");
-
-                generateHTMLSoal(soalList);
+                if(totalQuestions === 0) throw new Error("Kosong");
+                
+                const container = document.getElementById('questions-container');
+                soalList.forEach((soal, index) => {
+                    const i = index + 1;
+                    container.insertAdjacentHTML('beforeend', `<div class="question-card"><h3>${soal.nomor}. ${soal.pertanyaan}</h3><textarea id="ans${i}" class="exam-answer"></textarea><div class="footer-textarea"><span id="wc${i}">0 kata</span></div></div>`);
+                });
+                
+                document.querySelectorAll('.exam-answer').forEach((ta, idx) => {
+                    ta.addEventListener('input', function() {
+                        document.getElementById(`wc${idx + 1}`).textContent = `${this.value.trim() === "" ? 0 : this.value.trim().split(/\s+/).length} kata`;
+                        let ans = 0; document.querySelectorAll('.exam-answer').forEach(t => { if(t.value.trim().length > 5) ans++; });
+                        document.getElementById('progress-text').textContent = `Terjawab: ${ans}/${totalQuestions}`;
+                    });
+                });
+                
                 document.getElementById('progress-text').textContent = `Terjawab: 0/${totalQuestions}`;
-                
                 document.getElementById('status-load').textContent = `Kewarganegaraan • Waktu: 60 Menit • ${totalQuestions} Soal`;
-                const btnStart = document.getElementById('btn-start');
-                btnStart.disabled = false;
-                btnStart.textContent = "Mulai Ujian";
-
-            } catch(e) {
-                document.getElementById('status-load').textContent = "Gagal memuat soal. Silakan refresh (F5).";
-                console.error(e);
-            }
-        }
-
-        function generateHTMLSoal(soalList) {
-            const container = document.getElementById('questions-container');
-            container.innerHTML = "";
-            soalList.forEach((soal, index) => {
-                const i = index + 1;
-                const html = `
-                    <div class="question-card">
-                        <h3>${soal.nomor}. ${soal.pertanyaan}</h3>
-                        <textarea id="ans${i}" class="exam-answer" placeholder="Ketik jawaban Anda di sini..."></textarea>
-                        <div class="footer-textarea"><span id="wc${i}">0 kata</span></div>
-                    </div>
-                `;
-                container.insertAdjacentHTML('beforeend', html);
-            });
-            attachTextareaEvents();
-        }
-
-        function attachTextareaEvents() {
-            const textareas = document.querySelectorAll('.exam-answer');
-            textareas.forEach((textarea, index) => {
-                textarea.addEventListener('input', function() {
-                    const text = this.value.trim();
-                    const wordCount = text === "" ? 0 : text.split(/\s+/).length;
-                    document.getElementById(`wc${index + 1}`).textContent = `${wordCount} kata`;
-                    
-                    let answered = 0;
-                    document.querySelectorAll('.exam-answer').forEach(ta => {
-                        if(ta.value.trim().length > 10) answered++;
-                    });
-                    document.getElementById('progress-text').textContent = `Terjawab: ${answered}/${totalQuestions}`;
-                });
-                
-                textarea.addEventListener('focus', function() {
-                    document.querySelectorAll('.question-card').forEach(card => {
-                        if (card !== this.parentElement) card.style.opacity = '0.4';
-                    });
-                });
-                
-                textarea.addEventListener('blur', function() {
-                    document.querySelectorAll('.question-card').forEach(card => { card.style.opacity = '1'; });
-                });
-            });
+                document.getElementById('btn-start').disabled = false;
+                document.getElementById('btn-start').textContent = "Mulai Ujian";
+            } catch(e) { document.getElementById('status-load').textContent = "Gagal memuat soal. Refresh (F5)."; }
         }
 
         window.onload = fetchSoal;
@@ -283,106 +153,53 @@
         function startExam() {
             studentNIM = document.getElementById('nim').value.trim();
             studentNama = document.getElementById('nama').value.trim();
-
-            if (!studentNIM || !studentNama) {
-                showModal("Perhatian", "Harap isi NIM dan Nama terlebih dahulu.", "alert");
-                return;
-            }
-
-            let elem = document.documentElement;
-            if (elem.requestFullscreen) {
-                elem.requestFullscreen().catch(err => console.log("Fullscreen ditolak."));
-            }
-
+            if (!studentNIM || !studentNama) return showModal("Perhatian", "Isi NIM dan Nama.", "alert");
+            if (document.documentElement.requestFullscreen) document.documentElement.requestFullscreen().catch(()=>{});
+            
             document.getElementById('login-section').style.display = 'none';
             document.getElementById('exam-section').style.display = 'block';
-            
             document.getElementById('display-nim').textContent = studentNIM;
             document.getElementById('display-nama').textContent = studentNama;
-
+            
             isExamActive = true;
-            startTimer();
-            setupAntiCheat();
-            window.scrollTo(0, 0);
-        }
-
-        function startTimer() {
-            const timerBadge = document.getElementById('timer');
+            document.addEventListener("visibilitychange", handleVisibilityChange);
+            
             timerInterval = setInterval(() => {
                 timeRemaining--;
-                let minutes = Math.floor(timeRemaining / 60);
-                let seconds = timeRemaining % 60;
-                
-                timerBadge.textContent = (minutes < 10 ? "0" : "") + minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
-
-                if (timeRemaining <= 300) timerBadge.className = 'timer-badge danger';
-                else if (timeRemaining <= 900) timerBadge.className = 'timer-badge warning';
-
-                if (timeRemaining <= 0) {
-                    clearInterval(timerInterval);
-                    showModal("Waktu Habis", "Waktu Anda telah habis. Sistem akan mengirim jawaban secara otomatis.", "alert");
-                    executeSubmit();
-                }
+                let m = Math.floor(timeRemaining / 60), s = timeRemaining % 60;
+                let tb = document.getElementById('timer');
+                tb.textContent = (m < 10 ? "0" : "") + m + ":" + (s < 10 ? "0" : "") + s;
+                if (timeRemaining <= 300) tb.className = 'timer-badge danger'; else if (timeRemaining <= 900) tb.className = 'timer-badge warning';
+                if (timeRemaining <= 0) { clearInterval(timerInterval); showModal("Waktu Habis", "Sistem mengirim jawaban otomatis.", "alert"); executeSubmit("Waktu Habis"); }
             }, 1000);
         }
 
         function handleVisibilityChange() {
             if (document.hidden && isExamActive) {
-                sendLogPelanggaran("Pindah Tab / Minimize Browser");
+                fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify({ action: "log_pelanggaran", nim: studentNIM, nama: studentNama, pelanggaran: "Pindah Tab / Minimize Browser" }) }).catch(e=>e);
             }
         }
 
-        function setupAntiCheat() {
-            document.addEventListener("visibilitychange", handleVisibilityChange);
-        }
+        function confirmSubmit() { showModal("Konfirmasi", "Yakin mengumpulkan ujian sekarang?", "confirm", () => executeSubmit("Selesai")); }
 
-        function sendLogPelanggaran(jenisPelanggaran) {
-            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec") return;
-            const payload = { action: "log_pelanggaran", nim: studentNIM, nama: studentNama, pelanggaran: jenisPelanggaran, waktu: new Date().toLocaleString("id-ID") };
-            fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload) }).catch(e => console.error(e));
-        }
+        function executeSubmit(alasan) {
+            isExamActive = false; clearInterval(timerInterval); document.removeEventListener("visibilitychange", handleVisibilityChange);
+            document.getElementById('btn-submit').disabled = true; document.getElementById('btn-submit').textContent = "Mengirim...";
 
-        function confirmSubmit() {
-            showModal("Konfirmasi Pengumpulan", "Apakah Anda yakin ingin mengumpulkan ujian sekarang? Jawaban tidak dapat diubah lagi.", "confirm", () => {
-                executeSubmit();
-            });
-        }
-
-        function executeSubmit() {
-            isExamActive = false;
-            clearInterval(timerInterval);
-            document.removeEventListener("visibilitychange", handleVisibilityChange);
+            let arr = []; for (let i = 1; i <= totalQuestions; i++) arr.push(document.getElementById(`ans${i}`).value);
             
-            const btnSubmit = document.getElementById('btn-submit');
-            btnSubmit.disabled = true;
-            btnSubmit.textContent = "Mengirim Data...";
-
-            let arrayJawaban = [];
-            for (let i = 1; i <= totalQuestions; i++) {
-                arrayJawaban.push(document.getElementById(`ans${i}`).value);
-            }
-
-            const payload = {
-                action: "submit_jawaban", nim: studentNIM, nama: studentNama, jawaban: arrayJawaban
-            };
-
             fetch(GAS_URL, {
-                method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload)
-            })
-            .then(res => res.json())
-            .then(data => {
-                if(data.status === "success") {
-                    if(document.exitFullscreen) document.exitFullscreen().catch(() => {});
-                    document.getElementById('exam-section').style.display = 'none';
-                    document.getElementById('finish-section').style.display = 'flex';
-                } else throw new Error(data.message);
-            })
-            .catch(error => {
-                showModal("Gagal Mengirim", "Gagal terhubung ke server Google. Pastikan URL GAS sudah benar.", "alert");
-                btnSubmit.disabled = false;
-                btnSubmit.textContent = "Kumpulkan Jawaban";
-                isExamActive = true; 
-                document.addEventListener("visibilitychange", handleVisibilityChange);
+                method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", 
+                body: JSON.stringify({ action: "submit_jawaban", nim: studentNIM, nama: studentNama, jawaban: arr, status_submit: alasan })
+            }).then(r=>r.json()).then(d => {
+                if(d.status === "success") {
+                    if(document.exitFullscreen) document.exitFullscreen().catch(()=>{});
+                    document.getElementById('exam-section').style.display = 'none'; document.getElementById('finish-section').style.display = 'flex';
+                } else throw new Error();
+            }).catch(e => {
+                showModal("Gagal", "Gagal terhubung ke server.", "alert");
+                document.getElementById('btn-submit').disabled = false; document.getElementById('btn-submit').textContent = "Kumpulkan Jawaban";
+                isExamActive = true; document.addEventListener("visibilitychange", handleVisibilityChange);
             });
         }
     </script>
