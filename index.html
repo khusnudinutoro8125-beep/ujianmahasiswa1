@@ -208,7 +208,7 @@
         }
 
         async function fetchSoal() {
-            if(GAS_URL === "URL_GAS_ANDA_DISINI") {
+            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxnWkHd_c3Qkj-zY1cdmy5zhCl7vWGS-0TP2p2CW-YXs-vO4dWJoF73xbF-XiXSd1Jj/exec") {
                 document.getElementById('status-load').textContent = "ERROR: URL GAS Belum Diisi";
                 return;
             }
@@ -337,7 +337,7 @@
         }
 
         function sendLogPelanggaran(jenisPelanggaran) {
-            if(GAS_URL === "URL_GAS_ANDA_DISINI") return;
+            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxnWkHd_c3Qkj-zY1cdmy5zhCl7vWGS-0TP2p2CW-YXs-vO4dWJoF73xbF-XiXSd1Jj/exec") return;
             const payload = { action: "log_pelanggaran", nim: studentNIM, nama: studentNama, pelanggaran: jenisPelanggaran, waktu: new Date().toLocaleString("id-ID") };
             fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload) }).catch(e => console.error(e));
         }
