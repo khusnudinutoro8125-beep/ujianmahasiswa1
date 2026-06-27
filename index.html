@@ -161,7 +161,7 @@
 
     <script>
         // MASUKKAN URL DEPLOYMENT BARU DI SINI
-        const GAS_URL = "https://script.google.com/macros/s/AKfycbxhQA4vGx62CjVemktj134HCWkUozZGSBgYuTWxEns713Fj9CGcfE_XO1VdbeTmDeUn/exec"; 
+        const GAS_URL = "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec"; 
         
         let studentNIM = "";
         let studentNama = "";
@@ -208,7 +208,7 @@
         }
 
         async function fetchSoal() {
-            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxhQA4vGx62CjVemktj134HCWkUozZGSBgYuTWxEns713Fj9CGcfE_XO1VdbeTmDeUn/exec") {
+            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec") {
                 document.getElementById('status-load').textContent = "ERROR: URL GAS Belum Diisi";
                 return;
             }
@@ -337,7 +337,7 @@
         }
 
         function sendLogPelanggaran(jenisPelanggaran) {
-            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxhQA4vGx62CjVemktj134HCWkUozZGSBgYuTWxEns713Fj9CGcfE_XO1VdbeTmDeUn/exec") return;
+            if(GAS_URL === "https://script.google.com/macros/s/AKfycbxOOSsDboxr2YM0iWbsTQJ1nFh_f97-EuRc3b4f4Nr66owsw62ecs-JgEbeNL77V3wH/exec") return;
             const payload = { action: "log_pelanggaran", nim: studentNIM, nama: studentNama, pelanggaran: jenisPelanggaran, waktu: new Date().toLocaleString("id-ID") };
             fetch(GAS_URL, { method: "POST", headers: { "Content-Type": "text/plain;charset=utf-8" }, redirect: "follow", body: JSON.stringify(payload) }).catch(e => console.error(e));
         }
